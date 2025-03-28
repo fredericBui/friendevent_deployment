@@ -1,0 +1,3 @@
+[submodule "friendevent_backend"]
+	path = friendevent_backend
+	url = https://github.com/fredericBui/friendevent_backend.git

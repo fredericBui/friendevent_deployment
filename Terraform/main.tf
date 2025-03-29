@@ -36,3 +36,8 @@ resource "aws_instance" "ubuntu-vm-instance" {
 output "public_dns" {
   value = aws_instance.ubuntu-vm-instance.public_dns
 }
+
+resource "local_file" "public_dns" {
+    content  = aws_instance.ubuntu-vm-instance.public_dns
+    filename = "public_dns.txt"
+}

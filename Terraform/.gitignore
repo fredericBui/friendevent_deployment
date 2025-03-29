@@ -2,3 +2,4 @@ my-key
 my-key.pub
 .terraform*
 terraform*
+public_dns.txt

@@ -27,7 +27,18 @@ terraform apply
 Try to connect to your machine
 ```
 chmod 400 "my-key"
-ssh -i "my-key.pub" <public_dns>
+ssh -i "my-key" <public_dns>
+```
+
+# Configure machine with Ansible
+Change the host in the Ansible/inventory.ini
+```
+<user>@<public_dns> ansible_ssh_private_key_file=../Terraform/my-key
+```
+
+Run the playbook
+```
+ansible-playbook playbook.yaml -i inventory.ini
 ```
 
 # Deploy with CI/CD/CD

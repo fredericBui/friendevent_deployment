@@ -1,0 +1,7 @@
+- name: Connect to AWS EC2 instance
+  hosts: aws_instances
+  become: true
+  tasks:
+    - name: ls command
+      command: ls
+

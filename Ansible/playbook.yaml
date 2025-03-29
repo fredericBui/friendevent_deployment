@@ -6,3 +6,6 @@
       command: curl -fsSL https://get.docker.com -o get-docker.sh
     - name: Instal docker
       command: sh get-docker.sh
+    - name: Create Jenkins container
+      command: sudo docker run --name jenkins_master -d -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins:lts-jdk17
+    

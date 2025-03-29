@@ -27,13 +27,13 @@ terraform apply
 Try to connect to your machine
 ```
 chmod 400 "my-key"
-ssh -i "my-key" <user>@<public_dns>
+ssh -i "my-key" ubuntu@<public_dns>
 ```
 
 # Configure machine with Ansible
 Change the host in the Ansible/inventory.ini
 ```
-<user>@<public_dns> ansible_ssh_private_key_file=../Terraform/my-key
+ubuntu@<public_dns> ansible_ssh_private_key_file=../Terraform/my-key
 ```
 
 Run the playbook
@@ -41,26 +41,29 @@ Run the playbook
 ansible-playbook playbook.yaml -i inventory.ini
 ```
 
-# Deploy with CI/CD/CD
+# Prepare CI/CD/CD environment
 
-Run Jenkins Master
-```
-docker run --name jenkins_master -p 8080:8080 -p 50000:50000 --restart=on-failure jenkins/jenkins:lts-jdk17
-```
+Finalise the configuration of the Jenkins master on http://<public_dns>:8080
 
-Build Jenkins agent image
+Get the secret to finish the configuration
 ```
-docker build ./Jenkins_agents/composer -t jenkins_agent_composer
-docker build ./Jenkins_agents/nodeJS -t jenkins_agent_nodejs
+ssh -i "my-key" ubuntu@<public_dns>
+sudo docker logs jenkins_master
 ```
 
-Attach agent
+Build Jenkins agent image on remote VM
 ```
-docker inspect jenkins_master
-docker run --init jenkins/inbound-agent -url http://jenkins-server:port <secret> <agent name>
+sudo docker build ./composer -t jenkins_agent_composer
+sudo docker build ./nodeJS -t jenkins_agent_nodejs
+```
 
-docker run --init jenkins_agent_composer -url http://172.17.0.2:8080 5c69e6fcae43b78dc9f7bafdab526239e8cbc5f2ae4aad338e870657de45160e jenkins-agent
-docker run --init jenkins_agent_nodejs -url http://172.17.0.2:8080 1a960607bf2beaa0edde26599aa93567369b8e0dfafbd63273ace41a3cc74fc9 jenkins-agent-node
+Add new node in Jenkins Dashboard then link new jenkins agent for friendevent_backend and friendevent_frontend
 ```
+sudo docker inspect jenkins_master
+sudo docker run --init --name jenkins_agent_composer_container jenkins_agent_composer -d -url http://jenkins-server:port <secret> <agent name>
+sudo docker run --init -d --name jenkins_agent_node_container jenkins_agent_nodejs -url http://172.17.0.2:8080  <secret> <agent name>
+```
+
+Create a job pipeline on Jenkins for friendevent_backend & friendevent_frontend
 
 TO DO : fix the jenkins node agent

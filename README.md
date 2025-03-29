@@ -7,8 +7,10 @@
 
 # Provision machines with Terraform
 Create an IAM user on AWS with EC2 Full Access authorisation
+```
 export AWS_ACCESS_KEY_ID=YOUR_KEY
 export AWS_SECRET_ACCESS_KEY=YOUR_KEY
+```
 Change directory to Terraform and generate an SSH key pair
 ```
 cd Terraform
@@ -28,7 +30,7 @@ chmod 400 "my-key"
 ssh -i "my-key.pub" <public_dns>
 ```
 
-# Deploy with CI/CD/CD
+# Deploy with CI/CD/CD
 
 Run Jenkins Master
 ```

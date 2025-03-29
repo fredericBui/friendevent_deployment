@@ -90,38 +90,23 @@ resource "aws_instance" "ubuntu-monitoring-instance" {
   }
 }
 
-output "cicdcd_public_dns" {
-  value = aws_instance.ubuntu-cicdcd-instance.public_dns
+# output all values
+output "all_public_dns" {
+  value = {
+    cicdcd_public_dns = aws_instance.ubuntu-cicdcd-instance.public_dns
+    test_public_dns = aws_instance.ubuntu-test-instance.public_dns
+    production_public_dns = aws_instance.ubuntu-production-instance.public_dns
+    monitoring_public_dns = aws_instance.ubuntu-monitoring-instance.public_dns
+  }
 }
 
-output "test_public_dns" {
-  value = aws_instance.ubuntu-test-instance.public_dns
-}
-
-output "production_public_dns" {
-  value = aws_instance.ubuntu-production-instance.public_dns
-}
-
-output "monitoring_public_dns" {
-  value = aws_instance.ubuntu-monitoring-instance.public_dns
-}
-
-resource "local_file" "cicdcd_public_dns" {
-  content  = aws_instance.ubuntu-cicdcd-instance.public_dns
-  filename = "cicdcd_public_dns.txt"
-}
-
-resource "local_file" "test_public_dns" {
-  content  = aws_instance.ubuntu-test-instance.public_dns
-  filename = "test_public_dns.txt"
-}
-
-resource "local_file" "production_public_dns" {
-  content  = aws_instance.ubuntu-production-instance.public_dns
-  filename = "production_public_dns.txt"
-}
-
-resource "local_file" "monitoring_public_dns" {
-  content  = aws_instance.ubuntu-monitoring-instance.public_dns
-  filename = "monitoring_public_dns.txt"
+# store all content in a single file
+resource "local_file" "all_public_dns" {
+  content = <<-EOF
+    cicdcd_public_dns = "${aws_instance.ubuntu-cicdcd-instance.public_dns}"
+    test_public_dns = "${aws_instance.ubuntu-test-instance.public_dns}"
+    production_public_dns = "${aws_instance.ubuntu-production-instance.public_dns}"
+    monitoring_public_dns = "${aws_instance.ubuntu-monitoring-instance.public_dns}"
+  EOF
+  filename = "all_public_dns.txt"
 }

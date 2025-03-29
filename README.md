@@ -1,5 +1,8 @@
 # friendevent_deployment
 
+# Infrastructure plan
+![Infrastructure plan](infra.png "Friend Event infrastructure plan")
+
 # Require
 - Terraform CLI installed
 - AWS CLI installed

@@ -1,7 +1,32 @@
 # friendevent_deployment
 
 # Require
+- Terraform CLI installed
+- AWS CLI installed
 - Docker engine installed
+
+# Provision machines with Terraform
+Create an IAM user on AWS with EC2 Full Access authorisation
+export AWS_ACCESS_KEY_ID=YOUR_KEY
+export AWS_SECRET_ACCESS_KEY=YOUR_KEY
+Change directory to Terraform and generate an SSH key pair
+```
+cd Terraform
+ssh-keygen -t rsa -b 2048 -f my-key
+```
+
+Deploy machines and get the public dns
+```
+terraform init
+terraform plan
+terraform apply
+```
+
+Try to connect to your machine
+```
+chmod 400 "my-key"
+ssh -i "my-key.pub" <public_dns>
+```
 
 # Deploy with CI/CD/CD
 

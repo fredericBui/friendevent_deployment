@@ -1,5 +1,5 @@
-- name: Connect to AWS EC2 instance
-  hosts: aws_instances
+- name: Connect to AWS EC2 CICDCD instance
+  hosts: aws_cicdcd_instance
   become: true
   tasks:
     - name: Download docker installation script
@@ -13,3 +13,30 @@
         src: ../Jenkins_agents/
         dest: .
         mode: '777'
+
+- name: Connect to AWS EC2 test instance
+  hosts: aws_test_instance
+  become: true
+  tasks:
+    - name: Download docker installation script
+      command: curl -fsSL https://get.docker.com -o get-docker.sh
+    - name: Instal docker
+      command: sh get-docker.sh
+
+- name: Connect to AWS EC2 production instance
+  hosts: aws_production_instance
+  become: true
+  tasks:
+    - name: Download docker installation script
+      command: curl -fsSL https://get.docker.com -o get-docker.sh
+    - name: Instal docker
+      command: sh get-docker.sh
+      
+- name: Connect to AWS EC2 monitoring instance
+  hosts: aws_monitoring_instance
+  become: true
+  tasks:
+    - name: Download docker installation script
+      command: curl -fsSL https://get.docker.com -o get-docker.sh
+    - name: Instal docker
+      command: sh get-docker.sh

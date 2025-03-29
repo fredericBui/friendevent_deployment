@@ -31,15 +31,21 @@ ssh -i "my-key" ubuntu@<public_dns>
 ```
 
 # Configure machine with Ansible
-Change the host in the Ansible/inventory.ini
+Change all host in the Ansible/inventory.ini
 ```
-ubuntu@<public_dns> ansible_ssh_private_key_file=../Terraform/my-key
+ubuntu@<..._public_dns> ansible_ssh_private_key_file=../Terraform/my-key
 ```
 
 Run the playbook
 ```
 ansible-playbook playbook.yaml -i inventory.ini
 ```
+
+This playbook will install Docker in all remote VM, then :
+- On CICDCD a Jenkins and Sonarqube container
+- On Test nothing else
+- On Production minikube
+- On Monitoring Prometheus and Grafana
 
 # Prepare CI/CD/CD environment
 

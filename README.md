@@ -27,7 +27,7 @@ terraform apply
 Try to connect to your machine
 ```
 chmod 400 "my-key"
-ssh -i "my-key" <public_dns>
+ssh -i "my-key" <user>@<public_dns>
 ```
 
 # Configure machine with Ansible

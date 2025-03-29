@@ -2,6 +2,7 @@
   hosts: aws_instances
   become: true
   tasks:
-    - name: ls command
-      command: ls
-
+    - name: Download docker installation script
+      command: curl -fsSL https://get.docker.com -o get-docker.sh
+    - name: Instal docker
+      command: sh get-docker.sh

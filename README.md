@@ -3,6 +3,9 @@
 # Infrastructure plan
 ![Infrastructure plan](infra.png "Friend Event infrastructure plan")
 
+# Pipeline process
+![Pipeline process](pipelines.png "Friend Event Pipeline process")
+
 # Require
 - Terraform CLI installed
 - AWS CLI installed

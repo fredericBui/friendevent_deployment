@@ -13,6 +13,11 @@
         src: ../Jenkins_agents/
         dest: .
         mode: '777'
+    - name: Copy private key to connect to others instances
+      ansible.builtin.copy:
+        src: ../Terraform/my-key
+        dest: .
+        mode: '777'
 
 - name: Connect to AWS EC2 test instance
   hosts: aws_test_instance
